@@ -1,0 +1,10 @@
+@baseUrl=http://localhost:8080
+
+POST http://localhost:8080/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Fulano de Tal",
+    "username": "fulaninho",
+    "password": "123456"
+}
