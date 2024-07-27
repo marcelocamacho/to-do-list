@@ -1,6 +1,6 @@
 @baseUrl=http://localhost:8080
 
-POST http://localhost:8080/users/ HTTP/1.1
+POST {{baseUrl}}/users/ HTTP/1.1
 content-type: application/json
 
 {
@@ -8,3 +8,26 @@ content-type: application/json
     "username": "fulaninho",
     "password": "123456"
 }
+###
+POST {{baseUrl}}/tasks/ HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Terminar a criação da API To-Do-List",
+    "description": "Programação em Java Spring",
+    "priority": "ALTA",
+    "startAt": "2024-07-27T08:00:00",
+    "endAt": "2024-07-27T23:59:59",
+    "idUser":"uuidInvalido-6221-43b9-a800-uuidInvalido"
+}
+
+    private UUID id;
+    private String description;
+    @Column(length=50)
+    private String title;
+    private LocalDateTime startAt;
+    private LocalDateTime endAt;
+    private String priority;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    private UUID idUser;
