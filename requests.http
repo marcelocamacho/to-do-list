@@ -11,14 +11,14 @@ content-type: application/json
 ###
 POST {{baseUrl}}/tasks/ HTTP/1.1
 content-type: application/json
+Authorization: Basic fulaninho:1234568
 
 {
     "title": "Terminar a criação da API To-Do-List",
     "description": "Programação em Java Spring",
     "priority": "ALTA",
     "startAt": "2024-07-27T08:00:00",
-    "endAt": "2024-07-27T23:59:59",
-    "idUser":"uuidInvalido-6221-43b9-a800-uuidInvalido"
+    "endAt": "2024-07-27T23:59:59"
 }
 
     private UUID id;
