@@ -1,5 +1,6 @@
 @baseUrl=http://localhost:8080
 
+#CRIA O USUÁRIO FULANO
 POST {{baseUrl}}/users/ HTTP/1.1
 content-type: application/json
 
@@ -9,6 +10,9 @@ content-type: application/json
     "password": "123456"
 }
 ###
+
+#USUÁRIO FULANO CRIA UMA TAREFA
+# @name taskUUID
 POST {{baseUrl}}/tasks/ HTTP/1.1
 content-type: application/json
 Authorization: Basic fulaninho:123456
@@ -21,13 +25,32 @@ Authorization: Basic fulaninho:123456
     "endAt": "2024-08-28T23:59:59"
 }
 
+@taskFulaninho = {{taskUUID.response.body.$.id}}
 ###
-GET {{baseUrl}}/tasks/
+
+#USUÁRIO FULANO TENTA CRIA UMA TAREFA CUJO TÍTULO TEM MAIS DE 50 CARACTERES
+# @name taskUUID
+POST {{baseUrl}}/tasks/ HTTP/1.1
+content-type: application/json
 Authorization: Basic fulaninho:123456
 
+{
+    "title": "Lorem ipsum dolor sit amet, consectetur porta ante.",
+    "description": "Programação em Java Spring",
+    "priority": "ALTA",
+    "startAt": "2024-08-27T08:00:00",
+    "endAt": "2024-08-28T23:59:59"
+}
+
 ###
 
-PUT   {{baseUrl}}/tasks/537245b4-5223-4a9b-9e07-d6688af81c86
+#RECUPERA AS TAREFAS DO USUÁRIO FULANO
+GET {{baseUrl}}/tasks/
+Authorization: Basic fulaninho:123456
+###
+
+#USUÁRIO FULANO MODIFICA UMA TAREFA
+PUT {{baseUrl}}/tasks/{{taskFulaninho}}
 content-type: application/json
 Authorization: Basic fulaninho:123456
 
@@ -38,6 +61,7 @@ Authorization: Basic fulaninho:123456
 }
 ###
 
+#CRIA UM USUÁRIO TESTE
 POST {{baseUrl}}/users/ HTTP/1.1
 content-type: application/json
 
@@ -48,7 +72,8 @@ content-type: application/json
 }
 ###
 
-PUT   {{baseUrl}}/tasks/537245b4-5223-4a9b-9e07-d6688af81c85
+#USUÁRIO TESTE TENTA ALTERAR UMA TAREFA DO FULANO
+PUT   {{baseUrl}}/tasks/{{taskFulaninho}}
 content-type: application/json
 Authorization: Basic teste:654321
 
@@ -57,3 +82,4 @@ Authorization: Basic teste:654321
     "description": "Não deveria funcionar a alteração por um usuário que não tenha criado a tarega",
     "priority": "ALTA"
 }
+
