@@ -27,7 +27,7 @@ Authorization: Basic fulaninho:123456
 
 ###
 
-PUT   {{baseUrl}}/tasks/061ed388-5880-4874-b459-7aaaa1ca334e
+PUT   {{baseUrl}}/tasks/537245b4-5223-4a9b-9e07-d6688af81c86
 content-type: application/json
 Authorization: Basic fulaninho:123456
 
@@ -35,4 +35,25 @@ Authorization: Basic fulaninho:123456
     "title": "Alterando o titulo",
     "description": "Programação em Java Spring 2",
     "priority": "MEDIA"
+}
+###
+
+POST {{baseUrl}}/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Usuário de teste",
+    "username": "teste",
+    "password": "654321"
+}
+###
+
+PUT   {{baseUrl}}/tasks/537245b4-5223-4a9b-9e07-d6688af81c85
+content-type: application/json
+Authorization: Basic teste:654321
+
+{
+    "title": "Alterando o titulo com um usuário não dono",
+    "description": "Não deveria funcionar a alteração por um usuário que não tenha criado a tarega",
+    "priority": "ALTA"
 }

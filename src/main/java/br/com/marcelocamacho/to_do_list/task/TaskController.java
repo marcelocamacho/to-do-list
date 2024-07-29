@@ -59,12 +59,23 @@ public class TaskController {
      * Esse método precisa recuperar o objeto e alterar apenas os campos passados na requisição. Ele está sobrescrevendo o objeto e add null nos campos que não foram passados na request
      */
     @PutMapping("/{id}")
-    public TaskModel update(@RequestBody TaskModel taskModel, @PathVariable UUID id, HttpServletRequest request){
+    public ResponseEntity update(@RequestBody TaskModel taskModel, @PathVariable UUID id, HttpServletRequest request){
+        
+        var task  = this.taskRepository.findById(id).orElse(null);
+        
+        if(task == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tarefa não encontrada");
+        }
+        
+        var idUser = request.getAttribute("idUser");
+        
+        if(!task.getIdUser().equals(idUser)){
+            return  ResponseEntity.status(HttpStatus.FORBIDDEN)
+            .body("Usuário não tem permissão para alterar essa tarefa!");
+        }
 
-            var task  = this.taskRepository.findById(id).orElse(null);
+        Utils.copyNonNullProperties(taskModel, task);
 
-            Utils.copyNonNullProperties(taskModel, task);
-
-            return this.taskRepository.save(task);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(this.taskRepository.save(task));
     }
 }
