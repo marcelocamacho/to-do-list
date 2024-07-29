@@ -27,14 +27,12 @@ Authorization: Basic fulaninho:123456
 
 ###
 
-PUT   {{baseUrl}}/tasks/2a85c759-8d9f-4b98-b1ef-de6407e8f921
+PUT   {{baseUrl}}/tasks/061ed388-5880-4874-b459-7aaaa1ca334e
 content-type: application/json
 Authorization: Basic fulaninho:123456
 
 {
     "title": "Alterando o titulo",
-    "description": "Programação em Java Spring",
-    "priority": "ALTA",
-    "startAt": "2024-08-27T08:00:00",
-    "endAt": "2024-08-28T23:59:59"
+    "description": "Programação em Java Spring 2",
+    "priority": "MEDIA"
 }
