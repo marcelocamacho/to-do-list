@@ -24,3 +24,17 @@ Authorization: Basic fulaninho:123456
 ###
 GET {{baseUrl}}/tasks/
 Authorization: Basic fulaninho:123456
+
+###
+
+PUT   {{baseUrl}}/tasks/2a85c759-8d9f-4b98-b1ef-de6407e8f921
+content-type: application/json
+Authorization: Basic fulaninho:123456
+
+{
+    "title": "Alterando o titulo",
+    "description": "Programação em Java Spring",
+    "priority": "ALTA",
+    "startAt": "2024-08-27T08:00:00",
+    "endAt": "2024-08-28T23:59:59"
+}

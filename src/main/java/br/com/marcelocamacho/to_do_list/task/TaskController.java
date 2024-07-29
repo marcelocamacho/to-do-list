@@ -9,7 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +28,6 @@ public class TaskController {
 
     @PostMapping("/")
     public ResponseEntity create(@RequestBody TaskModel taskModel, HttpServletRequest request){
-        System.out.println("Chegou no controler " + request.getAttribute("idUser"));
         UUID idUser = (UUID) request.getAttribute("idUser");
         taskModel.setIdUser(idUser);
 
@@ -50,5 +52,16 @@ public class TaskController {
         var idUser = request.getAttribute("idUser");
         var tasks = this.taskRepository.findByIdUser((UUID) idUser);
         return tasks;
+    }
+
+    /*
+     * Esse método precisa recuperar o objeto e alterar apenas os campos passados na requisição. Ele está sobrescrevendo o objeto e add null nos campos que não foram passados na request
+     */
+    @PutMapping("/{id}")
+    public TaskModel update(@RequestBody TaskModel taskModel, @PathVariable UUID id, HttpServletRequest request){
+            var idUser = request.getAttribute("idUser");
+            taskModel.setIdUser((UUID) idUser);
+            taskModel.setId(id);
+            return this.taskRepository.save(taskModel);
     }
 }
