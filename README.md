@@ -1,6 +1,6 @@
 ## Introdução
 
-Aplicação em Java Spring que consiste em uma API com a seguinte estrutura:
+Aplicação em Java Spring + H2 database (em memória) que consiste em uma API com a seguinte estrutura:
 
 | Método | Rota | Descrição |
 | -------|------|---------- |
